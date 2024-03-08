@@ -1,0 +1,39 @@
+MAX,MIN=1000,-1000
+
+def minimax(depth, nodeIndex,maximizingplayer,values,alpha,beta):
+    if depth==3:
+        return values[nodeIndex]
+   
+    if maximizingplayer:
+       
+        best=MIN
+       
+        for i in range (0,2):
+            val=minimax(depth+1,nodeIndex*2+i,False,values,alpha,beta)
+            best=max(best,val)
+            alpha=max(best,alpha)
+           
+            if (beta<=alpha):
+                break
+           
+        return best
+    else:
+       
+        best=MAX
+       
+        for i in range (0,2):
+            val=minimax(depth+1,nodeIndex*2+i,True,values,alpha,beta)
+            best=min (best,val)
+            beta=min (best,beta)
+           
+            if (beta<=alpha):
+                break
+           
+        return best
+if _name=="main_":
+    values=[]
+    n=int (input("enter number of elements"))
+    for i in range (0,n):
+        x=int(input("ENTER THE ELEMET"))
+        values.insert(i,x)
+    print("The optimal value is:", minimax(0, 0, True, values, MIN, MAX))
