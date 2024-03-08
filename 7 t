@@ -9,7 +9,7 @@ from sklearn.neighbors import KNeighborsClassifier
 
 # K Nearest Neighbors Classification
 class K_Nearest_Neighbors_Classifier():
-    def _init_(self, K):
+    def __init__(self, K):
         self.K = K
 
     # Function to store training set
@@ -32,6 +32,7 @@ class K_Nearest_Neighbors_Classifier():
             neighbors = np.zeros(self.K)
             neighbors = self.find_neighbors(x)
             Y_predict[i]=mode(neighbors,axis=0,keepdims=True)[0][0]
+            print(f"Test data point {i} belongs to class: {Y_predict[i]}")
         return Y_predict
 
     # Function to find the K nearest neighbors to current test example
@@ -56,6 +57,7 @@ class K_Nearest_Neighbors_Classifier():
 def main():
     # Importing dataset
     df = pd.read_csv("titanic.csv")
+    print(df.head())
     X = df.drop(columns=["survived", "Name", "Sex"]).values
     Y = df["survived"].values
     # Splitting dataset into train and test set
@@ -76,5 +78,5 @@ def main():
     print("Accuracy on test set by our model       :  ",accuracy)
     print("Accuracy on test set by sklearn model   :  ",accuracy1)
 
-if _name_ == "_main_":
+if __name__== "__main__":
     main()
